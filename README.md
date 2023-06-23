@@ -8,7 +8,8 @@ Welcome to this challenge! You have been recently hired by Anycorp (a major news
 Learning Objectives  
 In this challenge, you are going to extract various type of information from the images to make it easier for the Anycorp journalists to find relevant images. To acomplish this goal, you are going to leverage AWS image (Amazon Rekogntion) and NLP (Amazon Comprehend) AI services which make advanced machine learning accessible without the need to train any model!  
 
-Task 1 : Copy CSV File from s3 bucket to notebook using AWS S3   
-Task 2 : Determine language that each review is written in using AWS Comprehend  
-Task 3 : Determine sentiment of each review using AWS Comprehend  
-Task 4 : Filter only the negative columns and get their review_id, save it to a csv file and copy it back to the s3 bucket using AWS S3  
+Task 1 : Extract Text from Images using Amazon Rekognition   
+Task 2 : Extract Dominant Language from text using Amazon Comprehend  
+Task 3 : Sentiment Analysis Using Amazon Comprehend AI Service!  
+Task 4 : Count Faces on the Image using Amazon Rekognition!  
+Task 5 : Label images using Amazon Rekognition 'detect_labels' API  
