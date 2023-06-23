@@ -16,3 +16,7 @@ def extract_text_from_image(bucket_name, image_key):
             text_tokens.append(text['DetectedText'])
     text = ' '.join(text_tokens) # Asuming text_tokens is a list of tokens of type 'LINE' from the API response
     return(text.lower())
+
+## Later part
+task1_answer = '117.jpg'### YOUR ANSWER IN THE FORM of 'xxx.jpg'
+plot_image(task1_answer, image_title='')
