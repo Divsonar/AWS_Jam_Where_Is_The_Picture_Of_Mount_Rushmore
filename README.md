@@ -51,3 +51,38 @@ Amazon Rekognition
 S3
 Task Validation:
 The task automatically completes once you extract text for all images, find the image with the term 'Lincoln' and submit your answer using the 'submit_your_answer' (provided in the notebook).
+
+# TASK 2
+
+Background:  
+Your manager is happy with your progress but tells you that some of the images contain languages other than English. It is important to know which ones, as it impacts image selection. So, she wonders if it is possible to detect the dominant language automatically.
+
+Your Task:  
+Your task is first to find dominant language in the text of all images. Out of all images containing German text (not all images), which one has the highest dominant language confidence score. To do this, you are going to leverage detect_dominant_language API of Amazon Comprehend AI service. More about the 'detect_dominant_language' API:
+
+https://docs.aws.amazon.com/comprehend/latest/dg/get-started-api-dominant-language.html
+
+Boto3 Amazon Comprehend API 'detect_dominant_language' reference:
+
+https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/comprehend.html#Comprehend.Client.detect_dominant_language
+
+Step #1 (YOUR INPUT NEEDED):  
+Complete "extract_dominant_language" function: This function uses Amazon Comprehend detect_dominant_language API to detect the dominant language in the text. Once you receive raw response from Amazon Comprehend, analyze it to see where you can find dominant language code and dominant language score. Return both the dominant language code and the dominant language score (detection confidence). The portion of the function you write shouldn't be more than a few lines of code.
+
+Step #2:  
+Let's run the "extract_dominant_language" function you just completed on the text of all the images. It is going to extract dominant language and confidence score from 'text_in_image' column of 'results_df' and fill the 'dominant_language_code' and 'dominant_language_score' columns. You don't need to do anything (no coding) other than running the code block under Task 2 Step 2 subsection. Please makes sure the "extract_dominant_language" function in Step #1 works as expected before running this step. After it is done, take a look at "results_df" dataframe to make sure the 'dominant_language_code' and 'dominant_language_score' are populated. Other columns should be empty at this point.
+
+Step #3 (YOUR INPUT NEEDED):  
+Out of all images with German text (language code: 'de'), which one has the higest 'dominant_language_score'? Code is provded to filter "results_df" to rows with German text. You can then either use the 'index' or the 'image_key' column to extract the image file name. Once you find that image, populate "task2_answer" with the image file name. Your response should be a string in the form of 'xxx.jpg'.
+
+Run 'upload_answer_to_s3' line to upload you answer as json to S3. You are done! You'll receive credit in few minutes if your answer is correct.
+
+Inventory:  
+SageMaker Notebook Instance
+Partially filled Jupyter Notebook
+S3 Bucket  
+Service you use:  
+Amazon Comprehend
+S3
+Task Validation:  
+The task automatically completes once you find dominant language and confidence scores for text in all images, find the image with highest language confidence score (out of of images with German text), and submit your answer using the 'submit_your_answer' (provided in the notebook).
