@@ -80,9 +80,49 @@ Run 'upload_answer_to_s3' line to upload you answer as json to S3. You are done!
 Inventory:  
 SageMaker Notebook Instance
 Partially filled Jupyter Notebook
-S3 Bucket  
+S3 Bucket
+
 Service you use:  
 Amazon Comprehend
 S3
+
 Task Validation:  
 The task automatically completes once you find dominant language and confidence scores for text in all images, find the image with highest language confidence score (out of of images with German text), and submit your answer using the 'submit_your_answer' (provided in the notebook).
+
+# TASK 3
+
+Background:  
+You wonder if you can do automated sentiment analysis and further enrich the image metadata. To do this, you are going to leverage 'detect_sentiment' API of Amazon Comprehend AI service. More about the 'detect_sentiment' API:
+
+https://docs.aws.amazon.com/comprehend/latest/dg/how-sentiment.htmlBoto3
+
+Amazon Comprehend API 'detect_sentiment' reference:
+
+https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/comprehend.html#Comprehend.Client.detect_sentiment
+
+Your Task:
+Your task is extract sentiment and associated scores from text found on each of the images, and find the image with most negative sentiment among those with English text.
+
+Step #1:
+Complete 'sentiment_detection' function: This function uses Amazon Comprehend 'detect_sentiment' API to extract text sentiment. Extract both the sentiment and sentiment_scores for each of the [POSITIVE | NEGATIVE | NEUTRAL | MIXED] sentiment possibilities. The portion of the function you write shouldn't be more than a few lines of code. First call Amazon Comprehend 'detect_sentiment' and get a raw response. Analyze the response and make see how you can extract both sentiment and sentiment score. sentiment_score is going to be a Python dictionary. You can complete this is less than 5 lines of code!
+
+Step #2:
+Let's run the 'sentiment_detection' function on the text of all images. It is going to extract sentiment and see sentiment scores from 'text_in_image' column of 'results_df' and fill the 'sentiment' and four 'sentiment_score' columns. You don't need to do anything (no coding) other than running the code block under Task 3 Step 2 subsection. Please makes sure the "sentiment_detection" function in Step #1 works as expected before running this step. After it is done, take a look at "results_df" dataframe to make sure the 'sentiment' and four 'sentiment_score' are populated. Other columns should be empty at this point. Note that in some cases it is not possible to extract the sentiment (maybe not enough text). Don't worry if you see those cases!
+
+Step #3:
+Based on the 'sentiment_negative_score' and 'dominant_language_code' column of the results_df, which image has the most negative English text sentiment in it? Code is provided to sort the dataframe by 'sentiment_negative_score' in descending order. You can then either use the 'index' or the 'image_key' column to extract the image file name. Once you find that image, populate "task3_answer" with the image file name. Your response should be a string in the form of 'xxx.jpg'.
+
+Run 'upload_answer_to_s3' line to upload you answer as json to S3. You are done! You'll receive credit in few minutes if your answer is correct.
+
+Inventory:  
+SageMaker Notebook Instance
+Partially filled Jupyter Notebook
+S3 Bucket
+
+Service you use:  
+Amazon Comprehend
+S3
+
+Task Validation:  
+The task automatically completes once you extract text sentiment and associate scores for all the images, find the image with most negative English text sentiment and submit your answer using the 'submit_your_answer' (provided in the notebook).
+
