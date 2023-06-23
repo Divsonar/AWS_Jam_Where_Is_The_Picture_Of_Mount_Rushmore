@@ -100,16 +100,16 @@ Amazon Comprehend API 'detect_sentiment' reference:
 
 https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/comprehend.html#Comprehend.Client.detect_sentiment
 
-Your Task:
+Your Task:  
 Your task is extract sentiment and associated scores from text found on each of the images, and find the image with most negative sentiment among those with English text.
 
-Step #1:
+Step #1:  
 Complete 'sentiment_detection' function: This function uses Amazon Comprehend 'detect_sentiment' API to extract text sentiment. Extract both the sentiment and sentiment_scores for each of the [POSITIVE | NEGATIVE | NEUTRAL | MIXED] sentiment possibilities. The portion of the function you write shouldn't be more than a few lines of code. First call Amazon Comprehend 'detect_sentiment' and get a raw response. Analyze the response and make see how you can extract both sentiment and sentiment score. sentiment_score is going to be a Python dictionary. You can complete this is less than 5 lines of code!
 
-Step #2:
+Step #2:  
 Let's run the 'sentiment_detection' function on the text of all images. It is going to extract sentiment and see sentiment scores from 'text_in_image' column of 'results_df' and fill the 'sentiment' and four 'sentiment_score' columns. You don't need to do anything (no coding) other than running the code block under Task 3 Step 2 subsection. Please makes sure the "sentiment_detection" function in Step #1 works as expected before running this step. After it is done, take a look at "results_df" dataframe to make sure the 'sentiment' and four 'sentiment_score' are populated. Other columns should be empty at this point. Note that in some cases it is not possible to extract the sentiment (maybe not enough text). Don't worry if you see those cases!
 
-Step #3:
+Step #3:  
 Based on the 'sentiment_negative_score' and 'dominant_language_code' column of the results_df, which image has the most negative English text sentiment in it? Code is provided to sort the dataframe by 'sentiment_negative_score' in descending order. You can then either use the 'index' or the 'image_key' column to extract the image file name. Once you find that image, populate "task3_answer" with the image file name. Your response should be a string in the form of 'xxx.jpg'.
 
 Run 'upload_answer_to_s3' line to upload you answer as json to S3. You are done! You'll receive credit in few minutes if your answer is correct.
@@ -126,3 +126,77 @@ S3
 Task Validation:  
 The task automatically completes once you extract text sentiment and associate scores for all the images, find the image with most negative English text sentiment and submit your answer using the 'submit_your_answer' (provided in the notebook).
 
+# TASK 4
+
+Background:  
+Your manager explains that privacy policies differ for images containing faces of people. But unfortunately, they don't have information recorded for each image.
+
+Your task is to extract number of faces on each image using Amazon Rekognition and also find a photo a photo of "Mount Rushmore National Memorial". Your boss needs it quickly and as far as he remembers there is no text in that image. He gives you a little history lesson about the memorail and the fact that the sculpture features heads of four US presidents. You job is to leverage Amazon Rekognition 'detect_faces' API to quickly count number of faces in each image! More about the 'detect_faces' API:  
+
+https://docs.aws.amazon.com/rekognition/latest/dg/API_DetectFaces.html
+
+Amazon Rekognition API 'detect_faces' reference:  
+
+https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/rekognition.html#Rekognition.Client.detect_faces
+
+Step #1 (YOUR INPUT IS NEEDED):  
+Complete "extract_num_faces" function: This function uses Amazon Rekognition "detect_faces" API to extract faces from an image. Once you have response from "detect_faces" API, count number of items in the "FaceDetails" key. The function should return the number of faces in an image. The portion of the function you write shouldn't be more than a few lines of code.
+
+Step #2:  
+Let's run the "extract_num_faces" function on the text of all images. It is going to extract number of faces on all images and fill the 'n_faces' columns. You don't need to do anything (no coding) other than running the code block under Task 4 Step 2 subsection. Please makes sure the "extract_num_faces" function in Step #1 works as expected before running this step. After it is done, take a look at "results_df" dataframe to make sure the 'n_faces' is populated. Other columns should be empty at this point.
+
+Step #3 (YOUR INPUT IS NEEDED):  
+Based on the 'n_faces' column of the results_df, which image has four faces? You can use the provided code to sort the dataframe by 'n_faces' in descending order. You can then either use the 'index' or the 'image_key' column to extract the image file name. Once you find that image, populate "task4_answer" with the image file name. Your response should be a string in the form of 'xxx.jpg'.
+
+Run 'upload_answer_to_s3' line to upload you answer as json to S3. You are done! You'll receive credit in few minutes if your answer is correct.
+
+Inventory:  
+SageMaker Notebook Instance
+Partially filled Jupyter Notebook
+S3 Bucket
+
+Service you use:  
+Amazon Rekognition
+S3
+
+Task Validation:  
+The task automatically completes once you extract number of faces in each image, find the image with four faces and submit your answer using the 'submit_your_answer' (provided in the notebook).
+
+# TASK 5
+
+Background:  
+Now it is your turn to surprise your manager. You think she will be impressed if you can extract label for of all the images automatically!
+
+Your Task:  
+Label all the images using Amazon Rekognition "detect_labels" API. This API analyses an image and returns labels along with their associated confidence score. More about the 'detect_labels' API:
+
+https://docs.aws.amazon.com/rekognition/latest/dg/labels-detect-labels-image.html
+
+Amazon Rekognition API 'detect_labels' reference:
+
+https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/rekognition.html#Rekognition.Client.detect_labels
+
+Step #1 (YOUR INPUT IS NEEDED):  
+Complete 'extract_image_labels' function: This function uses Amazon Rekognition 'detect_labels' API to extract labels from an image. Once you have response from 'detect_labels' API, extract top label and associated confidence score (top label is the one with highest confidence score). The function should return these two values. The portion of the function you write shouldn't be more than a few lines of code. Examine the raw response from 'detect_labels' to understand how to extract top label and the associated confidence score.
+
+Step #2:  
+Let's run the "extract_image_labels" function on the text of all images. It is going to extract label and confidence scoore on all images and fill the 'label' and 'label_conf' columns. You don't need to do anything (no coding) other than running the code block under Task 5 Step 2 subsection. Please makes sure the "extract_image_labels" function in Step #1 works as expected before running this step. After it is done, take a look at "results_df" dataframe to make sure the 'label' and 'label_conf' columns are populated. All columns should be populated at this point.
+
+Step #3 (YOUR INPUT IS NEEDED):  
+You should now find the image contianing a bird! Based on the 'label' column of the results_df, which image is labeld as "bird" or "animal"? To help, code is provided to sort the results_df based on 'label'. You can then either use the 'index' or the 'image_key' column to extract the image file name. Once you find that image, populate "task5_answer" with the image file name. Your response should be a string in the form of 'xxx.jpg'.
+
+Run 'upload_answer_to_s3' line to upload you answer as json to S3. You are done! You'll receive credit in few minutes if your answer is correct.
+
+Inventory:  
+SageMaker Notebook Instance
+Partially filled Jupyter Notebook
+S3 Bucket
+
+Service you use:  
+Amazon Rekognition
+S3
+
+Task Validation:  
+The task automatically completes once 1) you extract label for all the images, 2) you find the image with the label 'bird' or 'animal', and 3) you submit your answer using the 'submit_your_answer' (provided in the notebook).
+
+pd.set_option("max_rows", None)  
